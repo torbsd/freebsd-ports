@@ -1,9 +1,11 @@
-# freebsd-ports (Tor BSD Diversity Project)
+# freebsd-ports (TorBSD Diversity Project)
 
 TorBSD's FreeBSD Ports
 
-https://torbsd.github.io/
+    * https://torbsd.org
+    * https://github.com/torbsd
 
-These are development ports for FreeBSD. These ports are meant solely for testing and review, and should not be considered production ready.
+> Please note that these are development ports for FreeBSD.
+> They are meant solely for testing and review, and should not be considered production ready.
 
-Comments and contributions strongly encouraged.
+### Comments and contributions strongly encouraged!
