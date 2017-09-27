@@ -3,7 +3,7 @@
 PORTNAME=	obfs4proxy
 PORTVERSION=	0.0.7
 CATEGORIES=	security net ipv6
-MASTER_SITES=	http://people.torproject.org/~yawning/releases/${PORTNAME}/
+MASTER_SITES=	https://people.torproject.org/~yawning/releases/${PORTNAME}/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
