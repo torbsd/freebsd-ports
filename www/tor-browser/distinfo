@@ -1,3 +1,7 @@
-TIMESTAMP = 1508681050
-SHA256 (torbsd-torb-7.0.6-852e4a1_GH0.tar.gz) = f09e321011042d2276145bc7b09817f90a6d87b4d38371da307f59dec48ea479
-SIZE (torbsd-torb-7.0.6-852e4a1_GH0.tar.gz) = 294086174
+TIMESTAMP = 1546261474
+SHA256 (tor-browser-8.0.3.tar.gz) = 935dcc22f7c9cd4cdf56cd9e3b1ae92bdf8f21cca6a5e6fba4cc94a5dfeb2c49
+SIZE (tor-browser-8.0.3.tar.gz) = 386186833
+SHA256 (torbutton-2.0.7.tar.gz) = e347266027d53e613864a3c50a09aa4b78683f9132aeb3d3ec06d460595be34c
+SIZE (torbutton-2.0.7.tar.gz) = 645298
+SHA256 (tor-launcher-0.2.16.6.tar.gz) = dc510f61c49d61176c29af030c7544d0856b425adc593c1d2ef1934c13855294
+SIZE (tor-launcher-0.2.16.6.tar.gz) = 257904

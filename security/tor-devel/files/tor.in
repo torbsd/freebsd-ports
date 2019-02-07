@@ -4,42 +4,53 @@
 #
 # PROVIDE: tor
 # REQUIRE: DAEMON FILESYSTEMS
-# BEFORE: LOGIN
+# BEFORE:  LOGIN
 #
-# tor_enable (bool):	Set it to "YES" to enable Tor.	Default: NO
-# tor_conf (str):	Tor's config file.		Default: %%PREFIX%%/etc/tor/torrc
+# tor_enable	(bool):	Set it to "YES" to enable Tor.	Default: NO
+# tor_conf	(str):	Tor's config file.		Default: %%PREFIX%%/etc/tor/torrc
+# tor_pidfile	(str):	Tor's PID file.			Default: /var/run/tor/tor.pid
 #
-# This options are command line options used by Tor. That said,
-# 	setting up 'DataDirectory' or 'Log' using these 
-# 	options will result in configuration overwriting.
+#   This options are command line options used by Tor.
+#     That said, setting up 'DataDirectory' or 'Log' using these 
+#     options will result in configuration overwriting.
 #
-# tor_user (str):	User to run the Tor daemon.	Default: %%USER%%
-# tor_datadir (str):	Tor's DataDirecoty.		Default: /var/db/tor
-# tor_logdir (str):	Log directory.			Default: /var/log/tor
-# tor_loglevel (str):	Log severity level.		Default: notice
+# tor_datadir	(str):	Tor's DataDirecoty.		Default: /var/db/tor
+# tor_setuid	(bool):	Run Tor with setuid bit on.	Default: NO
+# tor_user	(str):	User to run the Tor daemon.	Default: %%USER%%
 #
 
 . /etc/rc.subr
 
 name="tor"
-rcvar=tor_enable
+rcvar="${name}_enable"
 
 load_rc_config ${name}
 
 : ${tor_enable="NO"}
 : ${tor_conf="%%PREFIX%%/etc/tor/torrc"}
-: ${tor_user="%%USER%%"}
 : ${tor_pidfile="/var/run/tor/tor.pid"}
 : ${tor_datadir="/var/db/tor"}
-: ${tor_logdir="/var/log/tor"}
-: ${tor_loglevel="notice"}
+: ${tor_setuid="NO"}
+: ${tor_user="%%USER%%"}
+: ${tor_group="%%GROUP%%"}
 
-required_files=${tor_conf}
-required_dirs=${tor_datadir}
-pidfile=${tor_pidfile}
-command="%%PREFIX%%/bin/${name}"
-command_args="-f ${tor_conf} --RunAsDaemon 1 --PidFile ${tor_pidfile} --DataDirectory ${tor_datadir} --Log ${tor_loglevel}\\ file\\ ${tor_logdir}/${tor_loglevel}.log"
+required_files="${tor_conf}"
+required_dirs="${tor_datadir}"
+
+pidfile="${tor_pidfile}"
+
+command="%%PREFIX%%/bin/tor"
+command_args="-f ${tor_conf} -RunAsDaemon 1 -DataDirectory ${tor_datadir} -PidFile ${tor_pidfile}"
+
 extra_commands="reload"
 
-run_rc_command "$1"
+if [ checkyesno tor_setuid ]; then
+  if [ grep -E 'User.*${tor_user}' ${tor_conf} ]; then
+	# Just let it here, so others can copy and proper grep stuff.
+  fi
+	command_args="${command_args} -User ${tor_user}"
+	tor_user="root"
+	tor_group="wheel"
+fi
 
+run_rc_command $1
